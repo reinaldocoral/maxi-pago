@@ -1,0 +1,12 @@
+{
+    "name": "reinaldocoral/maxi-pago",
+    "description": "Biblioteca para utilizar o Gateway da MaxiPago",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Reinaldocoral\\MaxiPago\\": "src/"
+        }
+    },
+    "require": {}
+}
