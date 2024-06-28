@@ -442,6 +442,20 @@ class maxiPago_XmlBuilder extends maxiPago_RequestBase {
         $this->setPayment();
     }
     
+    protected function setPix() {
+        $this->setRequest();
+        $this->setOrder();
+        $type = $this->type;
+        $this->xml->order->$type->addChild("transactionDetail");
+        $this->xml->order->$type->transactionDetail->addChild("payType");        
+        $this->xml->order->$type->transactionDetail->payType->addChild("pix");
+        $this->xml->order->$type->transactionDetail->payType->pix->addChild("expirationTime", $this->expirationTime);
+        if (strlen($this->paymentInfo) > 0) { 
+        	$this->xml->order->$type->transactionDetail->payType->pix->addChild("paymentInfo", $this->paymentInfo); 
+        }
+        $this->setPayment();
+    }
+    
     protected function setRedepay(){
     	$this->setRequest();
     	$this->setOrder();
@@ -798,6 +812,9 @@ class maxiPago_XmlBuilder extends maxiPago_RequestBase {
         $this->xml->request->addChild("filterOptions");
         if (strlen($this->transactionID) > 0) {
             $this->xml->request->filterOptions->addChild("transactionId", $this->transactionID);
+        }
+        elseif (strlen($this->orderID) > 0) {
+            $this->xml->request->filterOptions->addChild("orderId", $this->orderID);
         }
         elseif (strtolower($this->period) == "range") {
             $this->xml->request->filterOptions->addChild("period", $this->period);

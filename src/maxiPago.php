@@ -321,6 +321,40 @@ class maxiPago extends maxiPago_ResponseBase {
     }
 
     /**
+     * Performs a boleto sale
+     * 
+     * Transactions made with Boletos are different than credit
+     * card purchases. When we receive a transaction we create a
+     * boleto, available online, and return to the Merchant an URL
+     * to access the boleto payment slip.
+     * 
+     * @param array $array
+     * @throws BadMethodCallException
+     */
+    public function pixSale($array) {
+        try {
+            if (!is_array($array)) { 
+            	throw new BadMethodCallException('[maxiPago Class] Method '.__METHOD__.' must receive array as input'); 
+            }
+            if (is_object(maxiPago_RequestBase::$logger)) { 
+            	maxiPago_RequestBase::$logger->logNotice('Calling method '.__METHOD__); 
+            }
+            $this->request = $array;
+            $req = new maxiPago_Request($this->credentials);
+            $req->setVars($this->request);
+            $req->setEndpoint($this->host.'/UniversalAPI/postXML');
+            $req->setTransactionType("pix");
+            $this->response = $req->processRequest();
+        }
+        catch (Exception $e) {
+            if (is_object(maxiPago_RequestBase::$logger)) { 
+            	maxiPago_RequestBase::$logger->logCrit($e->getMessage()." in ".$e->getFile()." on line ".$e->getLine()); 
+            }
+            throw $e;
+        }
+    }
+
+    /**
      * Cancels a recurring payment
      * @param array $array
      * @throws BadMethodCallException

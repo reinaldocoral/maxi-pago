@@ -211,6 +211,11 @@ class maxiPago_RequestBase {
                     $this->type = "sale";
                     $this->setBoleto();
                     break;
+                case "pix":
+                    $this->tag = "<transaction-request></transaction-request>";
+                    $this->type = "sale";
+                    $this->setPix();
+                    break;
                 case "redepay":
                 	$this->tag = "<transaction-request></transaction-request>";
                 	$this->type = "sale";
@@ -323,6 +328,9 @@ class maxiPago_RequestBase {
     protected $processorTransactionID;
     protected $processorReferenceNumber;
     
+    //Pix
+    protected $expirationTime;
+    protected $paymentInfo;
     
     //Recurring
     protected $action;

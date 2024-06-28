@@ -163,6 +163,14 @@ class maxiPago_ResponseBase extends maxiPago_ServiceBase {
     public function getBoletoUrl() {
         if ((isset($this->response["boletoUrl"])) && (strlen($this->response["boletoUrl"]) > 0)) { return $this->response["boletoUrl"]; }
     }
+
+    /**
+     * Gets the Boleto Linha digitável
+     * @return string
+     */
+    public function getBoletoLinhaDigitavel() {
+        if ((isset($this->response["returnCode"])) && (strlen($this->response["returnCode"]) > 0)) { return $this->response["returnCode"]; }
+    }
     
     /**
      * Gets the Online Debit URL
@@ -235,6 +243,22 @@ class maxiPago_ResponseBase extends maxiPago_ServiceBase {
      */ 
     public function getCustomerId() {
         if ((isset($this->response["result"]["customerId"])) && (strlen($this->response["result"]["customerId"]) > 0)) { return $this->response["result"]["customerId"]; }
+    }
+
+    /**
+     * Gets the Pix Copia e cola
+     * @return string
+     */
+    public function getPixCopiaCola() {
+        if ((isset($this->response["emv"])) && (strlen($this->response["emv"]) > 0)) { return $this->response["emv"]; }
+    }
+
+    /**
+     * Gets the Pix QrCode Image
+     * @return string
+     */
+    public function getPixQrCodeBase64() {
+        if ((isset($this->response["imagem_base64"])) && (strlen($this->response["imagem_base64"]) > 0)) { return $this->response["imagem_base64"]; }
     }
     
     /**
